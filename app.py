@@ -3,8 +3,10 @@ from flask import Flask
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+# Configuration
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/intranet"
+app.config['BCRYPT_LOG_ROUNDS'] = 10
 
 # SQL Alchemy
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=True)
@@ -12,7 +14,7 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 # import models
-from model import User
+from model.user import User
 
 Base.metadata.create_all(bind=engine)
 
