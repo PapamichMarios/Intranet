@@ -1,17 +1,16 @@
-import bcrypt as bcrypt
-from sqlalchemy import Column, Integer, String, Date
-from app import Base, app
+from sqlalchemy import Column, Integer, String
+from app import Base, app, bcrypt
 
 
 class User(Base):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, index=True)
+    username = Column(String)
+    password = Column(String)
     first_name = Column(String)
     last_name = Column(String)
     country = Column(String)
     email = Column(String)
-    username = Column(String)
-    password = Column(String)
 
     def __init__(self, first_name, last_name, country, email, username, password):
         self.first_name = first_name
