@@ -1,4 +1,4 @@
-from flask import request, make_response
+from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from app import app
 from flask_accepts import accepts, responds

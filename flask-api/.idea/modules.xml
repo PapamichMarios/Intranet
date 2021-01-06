@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Intranet.iml" filepath="$PROJECT_DIR$/.idea/Intranet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/flask-api.iml" filepath="$PROJECT_DIR$/.idea/flask-api.iml" />
     </modules>
   </component>
 </project>
