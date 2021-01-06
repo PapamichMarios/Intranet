@@ -14,4 +14,5 @@ class BadCredentials(Exception):
         rv['code'] = self.status_code
         rv['message'] = self.message
         rv['success'] = False
+        rv['type'] = "BadCredentials"
         return rv

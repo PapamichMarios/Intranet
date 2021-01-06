@@ -1,5 +1,5 @@
 from flask import json, jsonify
-from werkzeug.exceptions import InternalServerError, BadRequest
+from werkzeug.exceptions import InternalServerError, BadRequest, Unauthorized
 from app import app
 from exception.bad_credentials import BadCredentials
 from exception.username_email_exists import UsernameEmailExists
@@ -21,7 +21,8 @@ def handle_internal_server_error_exception(e):
     response.data = json.dumps({
         "code": e.code,
         "message": e.name,
-        "success": False
+        "success": False,
+        "type": 'InternalServerError'
     })
     response.content_type = "application/json"
     return response
@@ -33,7 +34,21 @@ def handle_bad_request_exception(e):
     response.data = json.dumps({
         "code": e.code,
         "message": e.name + ': ' + e.description,
-        "success": False
+        "success": False,
+        "type": 'BadRequest'
+    })
+    response.content_type = "application/json"
+    return response
+
+
+@app.errorhandler(Unauthorized)
+def handle_unauthorized_exception(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        "code": e.code,
+        "message": e.name + ': ' + e.description,
+        "success": False,
+        "type": 'Unauthorized'
     })
     response.content_type = "application/json"
     return response
