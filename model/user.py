@@ -18,4 +18,4 @@ class User(Base):
         self.country = country
         self.email = email
         self.username = username
-        self.password = bcrypt.generate_password_hash(password, app.config.get('BCRYPT_LOG_ROUNDS'))
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')

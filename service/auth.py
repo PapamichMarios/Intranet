@@ -1,31 +1,30 @@
-from sqlalchemy import or_
-from app import Session, app, bcrypt
-from exception.username_email_exists import UsernameEmailExists
+from flask_jwt_extended import create_access_token
+
+from app import Session, bcrypt
+from exception.bad_credentials import BadCredentials
 from model.user import User
+from schema.login import LoginSchema
+from service.user import UserService
 
 
-class UserService:
+class AuthService:
 
     @staticmethod
-    def create(new_user: User) -> User:
-        # check if email or username exists
+    def register(new_user: User) -> User:
+        return UserService.create(new_user)
+
+
+    @staticmethod
+    def authenticate(credentials: LoginSchema) -> dict:
+
         session = Session()
-        user_db = session.query(User).filter(
-            or_(User.username == new_user['username'], User.email == new_user['email'])).first()
-
-        if user_db:
-            raise UsernameEmailExists('Username or email already exists!')
-
-        # hash password
-        user_to_save = User(
-            new_user['first_name'],
-            new_user['last_name'],
-            new_user['country'],
-            new_user['email'],
-            new_user['username'],
-            new_user['password']
-        )
-        session.add(user_to_save)
+        user = session.query(User).filter(User.username == credentials['username']).first()
         session.commit()
 
-        return new_user
+        if not user:
+            raise BadCredentials('Wrong username or password.')
+
+        if not bcrypt.check_password_hash(user.password, credentials['password']):
+            raise BadCredentials('Wrong Username or password.')
+
+        return {'jwt': create_access_token(identity=credentials['username'])}
