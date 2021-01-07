@@ -1,6 +1,6 @@
 from flask_jwt_extended import create_access_token
 
-from app import Session, bcrypt
+from app import db, bcrypt
 from exception.bad_credentials import BadCredentials
 from model.user import User
 from schema.login import LoginSchema
@@ -17,9 +17,8 @@ class AuthService:
     @staticmethod
     def authenticate(credentials: LoginSchema) -> dict:
 
-        session = Session()
-        user = session.query(User).filter(User.username == credentials['username']).first()
-        session.commit()
+        user = db.session.query(User).filter(User.username == credentials['username']).first()
+        db.session.commit()
 
         if not user:
             raise BadCredentials('Wrong username or password.')

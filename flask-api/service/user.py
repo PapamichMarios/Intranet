@@ -1,5 +1,6 @@
 from sqlalchemy import or_
-from app import Session, app, bcrypt
+
+from app import db, bcrypt
 from exception.username_email_exists import UsernameEmailExists
 from model.user import User
 
@@ -9,23 +10,22 @@ class UserService:
     @staticmethod
     def create(new_user: User) -> User:
         # check if email or username exists
-        session = Session()
-        user_db = session.query(User).filter(
+        user_db = db.session.query(User).filter(
             or_(User.username == new_user['username'], User.email == new_user['email'])).first()
 
         if user_db:
             raise UsernameEmailExists('Username or email already exists!')
 
-        # hash password
         user_to_save = User(
-            new_user['first_name'],
-            new_user['last_name'],
-            new_user['country'],
-            new_user['email'],
-            new_user['username'],
-            new_user['password']
+            first_name=new_user['first_name'],
+            last_name=new_user['last_name'],
+            country=new_user['country'],
+            email=new_user['email'],
+            username=new_user['username'],
+            # hash password
+            password=bcrypt.generate_password_hash(new_user['password']).decode('utf-8')
         )
-        session.add(user_to_save)
-        session.commit()
+        db.session.add(user_to_save)
+        db.session.commit()
 
         return new_user

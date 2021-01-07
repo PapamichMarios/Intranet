@@ -1,9 +1,7 @@
 from flask_bcrypt import Bcrypt
-from sqlalchemy import create_engine
 from flask import Flask
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from flask_jwt_extended import JWTManager
+from flask_sqlalchemy import SQLAlchemy
 
 
 # Configuration
@@ -18,17 +16,15 @@ jwt = JWTManager(app)
 
 # SQL Alchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/intranet"
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=True)
-Session = sessionmaker(bind=engine)
-Base = declarative_base()
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 # import models, controllers, error handlers
 import model.user
 import controller.auth
 import error_handler
 
-Base.metadata.create_all(bind=engine)
-
+db.create_all()
 
 if __name__ == '__main__':
     app.run()
