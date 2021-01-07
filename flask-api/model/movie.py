@@ -11,7 +11,7 @@ class Movie(db.Model):
     id = db.Column('movie_id', db.Integer, primary_key=True, index=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
-    year = db.Column(db.Date, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
     ratings = db.relationship('Rating', backref='movie', lazy=True)
     genres = db.relationship('Genre', secondary=movie_genres_table)

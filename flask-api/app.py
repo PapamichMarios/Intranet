@@ -26,7 +26,7 @@ import error_handler
 db.create_all()
 
 from service.configuration import ConfigurationService
-ConfigurationService.create_db_data()
+ConfigurationService.init_db_data()
 
 if __name__ == '__main__':
     app.run()
