@@ -1,5 +1,5 @@
 from app import db
-import model.role
+import model.role, model.rating
 
 user_roles_table = db.Table('user_has_roles', db.Model.metadata,
                             db.Column('user_id', db.Integer, db.ForeignKey('user.user_id')),
@@ -16,3 +16,4 @@ class User(db.Model):
     country = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     roles = db.relationship('Role', secondary=user_roles_table)
+    ratings = db.relationship('Rating', backref='user', lazy=True)

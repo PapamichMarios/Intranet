@@ -25,14 +25,8 @@ import error_handler
 
 db.create_all()
 
-# Create roles
-if not Role.query.all():
-    admin_role = Role(id=1, name=RoleEnum.ROLE_ADMINISTRATOR.name, description='Admin Role')
-    user_role = Role(id=2, name=RoleEnum.ROLE_USER.name, description='User Role')
-    db.session.add(admin_role)
-    db.session.add(user_role)
-    db.session.commit()
-
+from service.configuration import ConfigurationService
+ConfigurationService.create_db_data()
 
 if __name__ == '__main__':
     app.run()
