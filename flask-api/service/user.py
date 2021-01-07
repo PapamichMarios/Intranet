@@ -34,3 +34,7 @@ class UserService:
         db.session.commit()
 
         return UserSchema().dump(user_to_save)
+
+    @staticmethod
+    def get_all() -> dict:
+        return UserSchema().dump(User.query.all())

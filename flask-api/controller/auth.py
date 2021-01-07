@@ -24,9 +24,8 @@ def login() -> ApiResponse:
     return ApiResponse(AuthService.authenticate(request.parsed_obj), True)
 
 
-@app.route('/protected', methods=['GET'])
+@app.route('/profile', methods=['GET'])
 @jwt_required
 @responds(schema=ApiResponseSchema)
 def protected() -> ApiResponse:
-    current_user = get_jwt_identity()
-    return ApiResponse(current_user, True)
+    return ApiResponse(AuthService.my_profile(get_jwt_identity()), True)

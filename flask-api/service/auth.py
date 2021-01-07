@@ -2,8 +2,10 @@ from flask_jwt_extended import create_access_token
 
 from app import db, bcrypt
 from exception.bad_credentials import BadCredentials
+from exception.resource_not_found import ResourceNotFound
 from model.user import User
 from schema.login import LoginSchema
+from schema.user import UserSchema
 from service.user import UserService
 
 
@@ -27,3 +29,11 @@ class AuthService:
             raise BadCredentials('Wrong Username or password.')
 
         return {'jwt': create_access_token(identity=credentials['username'])}
+
+    @staticmethod
+    def my_profile(username: str) -> dict:
+        profile = User.query.filter(User.username == username).first()
+        if not profile:
+            raise ResourceNotFound('Username not found')
+
+        return UserSchema().dump(profile)
