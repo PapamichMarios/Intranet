@@ -1,5 +1,7 @@
 from marshmallow import Schema, fields, validate
 
+from schema.role import RoleSchema
+
 
 class UserSchema(Schema):
     id = fields.Number(attribute="id")
@@ -9,3 +11,4 @@ class UserSchema(Schema):
     email = fields.Email(attribute="email", validate=validate.Length(min=3, max=256), required=True)
     username = fields.String(attribute="username", validate=validate.Length(min=3, max=256), required=True)
     password = fields.String(attribute="password", validate=validate.Length(min=8, max=256), required=True)
+    roles = fields.Nested(RoleSchema, many=True)

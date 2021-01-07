@@ -13,7 +13,8 @@ from service.auth import AuthService
 @accepts(schema=UserSchema)
 @responds(schema=ApiResponseSchema)
 def register() -> ApiResponse:
-    return ApiResponse(AuthService.register(request.parsed_obj), True)
+    re = AuthService.register(request.parsed_obj)
+    return ApiResponse(re, True)
 
 
 @app.route('/login', methods=['POST'])

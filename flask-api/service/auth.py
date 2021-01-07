@@ -10,14 +10,14 @@ from service.user import UserService
 class AuthService:
 
     @staticmethod
-    def register(new_user: User) -> User:
+    def register(new_user: User) -> dict:
         return UserService.create(new_user)
 
 
     @staticmethod
     def authenticate(credentials: LoginSchema) -> dict:
 
-        user = db.session.query(User).filter(User.username == credentials['username']).first()
+        user = User.query.filter(User.username == credentials['username']).first()
         db.session.commit()
 
         if not user:
