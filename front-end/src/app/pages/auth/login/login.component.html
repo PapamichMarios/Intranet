@@ -1,16 +1,47 @@
-<mat-card>
-  <mat-card-title>Login</mat-card-title>
-  <mat-card-content>
-    <form>
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput>
-      </mat-form-field>
+<div class="row justify-content-center">
+  <div class="col-auto">
+    <mat-card class="text-center">
+      <mat-card-title class="mb-3">Login</mat-card-title>
+      <mat-card-content>
+        <form #loginForm="ngForm" (ngSubmit)="login()">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                name="username"
+                #username="ngModel"
+                minlength="3"
+                required
+                [(ngModel)]="loginRequest.username"
+              />
+              <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>  
+              <mat-error *ngIf="username.hasError('minlength')">Username must be at least 3 characters</mat-error>  
+            </mat-form-field>
+          </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput>
-      </mat-form-field>
-    </form>
-  </mat-card-content>
-</mat-card>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input
+                type="password"
+                matInput
+                name="password"
+                #password="ngModel"
+                minlength="8"
+                required
+                [(ngModel)]="loginRequest.password"
+              />
+              <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>  
+              <mat-error *ngIf="password.hasError('minlength')">Password must be at least 8 characters</mat-error>  
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 from flask_bcrypt import Bcrypt
 from flask import Flask
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -30,3 +31,11 @@ ConfigurationService.init_db_data()
 
 if __name__ == '__main__':
     app.run()
+
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response

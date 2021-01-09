@@ -1,18 +1,18 @@
 class BadCredentials(Exception):
-    status_code = 401
+    code = 401
 
-    def __init__(self, message, status_code=None, payload=None):
+    def __init__(self, message, code=None, payload=None):
         super().__init__()
         self.message = message
         self.success = False
-        if status_code is not None:
-            self.status_code = status_code
+        if code is not None:
+            self.code = code
         self.payload = payload
 
     def to_dict(self):
         rv = dict(self.payload or ())
-        rv['code'] = self.status_code
+        rv['code'] = self.code
         rv['message'] = self.message
         rv['success'] = False
-        rv['type'] = "BadCredentials"
+        rv['type'] = "BadCredentialsException"
         return rv

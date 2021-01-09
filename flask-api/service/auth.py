@@ -28,7 +28,10 @@ class AuthService:
         if not bcrypt.check_password_hash(user.password, credentials['password']):
             raise BadCredentials('Wrong Username or password.')
 
-        return {'jwt': create_access_token(identity=credentials['username'])}
+        return {
+            'type': 'Bearer ',
+            'token': create_access_token(identity=credentials['username'])
+        }
 
     @staticmethod
     def my_profile(username: str) -> dict:

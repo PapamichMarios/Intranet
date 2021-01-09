@@ -6,3 +6,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mr-1 {
     margin-right: 1rem;
 }
+
+@import '@angular/material/prebuilt-themes/purple-green.css';
+
+
+// Imports functions, variables, and mixins that are needed by other Bootstrap files
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+// Import Reboot
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/grid'; // add the grid
+@import '~bootstrap/scss/utilities'; // add css utilities
+
+@import 'reset';

@@ -34,6 +34,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatInputModule} from '@angular/material/input'
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -73,7 +74,8 @@ import {MatInputModule} from '@angular/material/input'
     MatSortModule,
     MatTableModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FormsModule
   ],
   exports: [
     MatToolbarModule,
@@ -110,7 +112,8 @@ import {MatInputModule} from '@angular/material/input'
     MatSortModule,
     MatTableModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    FormsModule
   ]
 })
 export class SharedModule { }
