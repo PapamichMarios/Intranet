@@ -23,7 +23,8 @@ class MovieService:
 
     @staticmethod
     def get_all() -> dict:
-        return MovieSchema(many=True).dump(Movie.query.all())
+        return MovieSchema(many=True).dump(
+            Movie.query.all())
 
     @staticmethod
     def get_all_by_genre(genre_id) -> dict:
@@ -32,11 +33,11 @@ class MovieService:
 
     @staticmethod
     def get_by_id(movie_id: int) -> dict:
-        return MovieSchema().dump(Movie.query.get(movie_id))
+        return MovieSchema().dump(
+            Movie.query.get(movie_id))
 
     @staticmethod
     def search_by_name(name: str) -> dict:
         search = "%{}%".format(name)
-        movies = Movie.query.filter(Movie.name.ilike(search)).all()
-        print(movies)
-        return MovieSchema(many=True).dump(movies)
+        return MovieSchema(many=True).dump(
+            Movie.query.filter(Movie.name.ilike(search)).all())
