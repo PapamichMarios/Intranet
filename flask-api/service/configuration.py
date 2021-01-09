@@ -12,14 +12,14 @@ class ConfigurationService:
     def init_db_data():
 
         # create roles
-        if not Role.query.all():
+        if not Role.query.first():
             admin_role = Role(id=1, name=RoleEnum.ROLE_ADMINISTRATOR.name, description='Admin Role')
             user_role = Role(id=2, name=RoleEnum.ROLE_USER.name, description='User Role')
             db.session.add(admin_role)
             db.session.add(user_role)
 
         # create genres
-        if not Genre.query.all():
+        if not Genre.query.first():
             horror = Genre(id=1, name='Horror', description='')
             thriller = Genre(id=2, name='Thriller', description='')
             drama = Genre(id=3, name='Drama', description='')
@@ -35,7 +35,7 @@ class ConfigurationService:
             db.session.add(animation)
 
         # create admin
-        if not User.query.all():
+        if not User.query.first():
             password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).decode('utf-8')
             admin = User(id=1,
                          username="admin",
@@ -48,7 +48,7 @@ class ConfigurationService:
             db.session.add(admin)
 
         # create movies
-        if not Movie.query.all():
+        if not Movie.query.first():
             crime = Genre.query.filter(Genre.name == 'Crime').first()
             horror = Genre.query.filter(Genre.name == 'Horror').first()
             drama = Genre.query.filter(Genre.name == 'Drama').first()
@@ -74,7 +74,7 @@ class ConfigurationService:
                               year=1994,
                               duration=88,
                               description="Lion prince Simba and his father are targeted by his bitter uncle, "
-                                          "who wants to ascend the throne himself.")
+                                          "who wants to ascend the thrfirst himself.")
 
             lion_king.genres.append(animation)
             lion_king.genres.append(drama)

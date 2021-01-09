@@ -10,18 +10,21 @@ from service.movie import MovieService
 
 
 @app.route('/movies/all', methods=['GET'])
-@jwt_required
 @responds(schema=ApiResponseSchema)
 def get_all_movies() -> ApiResponse:
-    AuthService.is_admin()
     return ApiResponse(MovieService.get_all(), True)
+
+
+@app.route('/movies/all/genre/<int:genre_id>', methods=['GET'])
+@responds(schema=ApiResponseSchema)
+def get_all_movies_by_genre(genre_id) -> ApiResponse:
+    return ApiResponse(MovieService.get_all_by_genre(genre_id), True)
 
 
 @app.route('/movies/<int:movie_id>', methods=['GET'])
 @jwt_required
 @responds(schema=ApiResponseSchema)
 def get_movie_by_id(movie_id) -> ApiResponse:
-    AuthService.is_admin()
     return ApiResponse(MovieService.get_by_id(movie_id), True)
 
 

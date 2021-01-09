@@ -1,5 +1,7 @@
 from app import db
+from model.genre import Genre
 from model.movie import Movie
+from model.role import Role
 from schema.movie import MovieSchema
 
 
@@ -22,6 +24,11 @@ class MovieService:
     @staticmethod
     def get_all() -> dict:
         return MovieSchema(many=True).dump(Movie.query.all())
+
+    @staticmethod
+    def get_all_by_genre(genre_id) -> dict:
+        return MovieSchema(many=True).dump(
+            Movie.query.join(Movie.genres).filter(Genre.id == genre_id).all())
 
     @staticmethod
     def get_by_id(movie_id: int) -> dict:
