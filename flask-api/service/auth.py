@@ -7,6 +7,7 @@ from exception.bad_credentials import BadCredentials
 from exception.resource_not_found import ResourceNotFound
 from model.user import User
 from schema.login import LoginSchema
+from schema.role import RoleSchema
 from schema.user import UserSchema
 from service.user import UserService
 
@@ -30,8 +31,11 @@ class AuthService:
             raise BadCredentials('Wrong Username or password.')
 
         return {
-            'type': 'Bearer ',
-            'token': create_access_token(identity=credentials['username'], expires_delta=False)
+            "auth": {
+                "type": "Bearer ",
+                "token": create_access_token(identity=credentials['username'], expires_delta=False)
+            },
+            "roles": RoleSchema(many=True).dump(user.roles)
         }
 
     @staticmethod

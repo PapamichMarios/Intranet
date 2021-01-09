@@ -29,7 +29,10 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginRequest)
     .pipe(
-      tap((response: Auth) => this.localStorageService.authLocalStorage = response)
+      tap((response: any) => {
+        this.localStorageService.authLocalStorage = response.auth;
+        this.localStorageService.rolesLocalStorage = response.roles;
+      })
     )
     .subscribe(
       response => {

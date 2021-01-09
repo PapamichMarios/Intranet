@@ -10,10 +10,19 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './_interceptors/error.interceptor';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { LoggedGuard } from './_guards/logged.guard';
+import { MoviesComponent } from './pages/movies/movies.component';
+import { MovieProfileComponent } from './pages/movie-profile/movie-profile.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { Auth } from './_models/auth.model';
+import { AuthGuard } from './_guards/auth.guard';
+import { TopMoviesComponent } from './pages/top-movies/top-movies.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MoviesComponent,
+    MovieProfileComponent,
+    TopMoviesComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +34,8 @@ import { LoggedGuard } from './_guards/logged.guard';
   providers: [
     AuthService,
     LoggedGuard,
+    AuthGuard,
+    AdminGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
