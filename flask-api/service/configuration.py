@@ -1,8 +1,9 @@
-from app import db
+from app import db, bcrypt, app
 from enums.role import RoleEnum
 from model.genre import Genre
 from model.movie import Movie
 from model.role import Role
+from model.user import User
 
 
 class ConfigurationService:
@@ -32,6 +33,19 @@ class ConfigurationService:
             db.session.add(comedy)
             db.session.add(crime)
             db.session.add(animation)
+
+        # create admin
+        if not User.query.all():
+            password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).decode('utf-8')
+            admin = User(id=1,
+                         username="admin",
+                         password=password,
+                         email="admin@admin",
+                         first_name="Admin",
+                         last_name="Admin")
+            admin.roles = [Role.query.get(1)]
+
+            db.session.add(admin)
 
         # create movies
         if not Movie.query.all():

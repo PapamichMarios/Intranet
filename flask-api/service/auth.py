@@ -1,6 +1,8 @@
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity
+from werkzeug.exceptions import Unauthorized
 
 from app import db, bcrypt
+from enums.role import RoleEnum
 from exception.bad_credentials import BadCredentials
 from exception.resource_not_found import ResourceNotFound
 from model.user import User
@@ -31,3 +33,11 @@ class AuthService:
             'type': 'Bearer ',
             'token': create_access_token(identity=credentials['username'], expires_delta=False)
         }
+
+    @staticmethod
+    def is_admin():
+        username = get_jwt_identity()
+        user = User.query.filter(User.username == username).first()
+        role = list(filter(lambda x: x.name == RoleEnum.ROLE_ADMINISTRATOR.name, user.roles))
+        if not role:
+            raise Unauthorized

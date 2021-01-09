@@ -38,7 +38,8 @@ class UserService:
 
     @staticmethod
     def get_all() -> dict:
-        return UserSchema().dump(User.query.all())
+        users = User.query.all()
+        return UserSchema(many=True).dump(users)
 
     @staticmethod
     def my_profile(username: str) -> dict:

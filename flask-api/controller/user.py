@@ -1,13 +1,25 @@
 from flask_accepts import responds, accepts
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import request
+from werkzeug.exceptions import Unauthorized
+
 from app import app
+from enums.role import RoleEnum
 from model.response import ApiResponse
+from model.user import User
 from schema.change_password import ChangePasswordSchema
 from schema.response import ApiResponseSchema
 from schema.user import UserSchema
 from service.auth import AuthService
 from service.user import UserService
+
+
+@app.route('/users/all', methods=['GET'])
+@jwt_required
+@responds(schema=ApiResponseSchema)
+def get_all_users() -> ApiResponse:
+    AuthService.is_admin()
+    return ApiResponse(UserService.get_all(), True)
 
 
 @app.route('/profile', methods=['GET'])

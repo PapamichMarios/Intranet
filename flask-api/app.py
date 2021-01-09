@@ -21,12 +21,13 @@ db = SQLAlchemy(app)
 
 from enums.role import RoleEnum
 from model.role import Role
-import controller.auth, controller.user
+import controller.auth, controller.user, controller.movie
 import error_handler
 
 db.create_all()
 
 from service.configuration import ConfigurationService
+app.config['ADMIN_PASSWORD'] = "flask-intranet718293"
 ConfigurationService.init_db_data()
 
 if __name__ == '__main__':

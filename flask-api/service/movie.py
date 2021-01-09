@@ -21,8 +21,15 @@ class MovieService:
 
     @staticmethod
     def get_all() -> dict:
-        return MovieSchema().dump(Movie.query.all())
+        return MovieSchema(many=True).dump(Movie.query.all())
 
     @staticmethod
     def get_by_id(movie_id: int) -> dict:
-        return MovieSchema().dump(Movie.query.filter(Movie.id == movie_id).first())
+        return MovieSchema().dump(Movie.query.get(movie_id))
+
+    @staticmethod
+    def search_by_name(name: str) -> dict:
+        search = "%{}%".format(name)
+        movies = Movie.query.filter(Movie.name.ilike(search)).all()
+        print(movies)
+        return MovieSchema(many=True).dump(movies)
