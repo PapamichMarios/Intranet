@@ -21,7 +21,7 @@ db = SQLAlchemy(app)
 
 from enums.role import RoleEnum
 from model.role import Role
-import controller.auth
+import controller.auth, controller.user
 import error_handler
 
 db.create_all()

@@ -11,35 +11,27 @@ import { LocalStorageService } from './local-storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class UserService {
 
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
     private router: Router) { }
 
-  login(loginRequest: LoginRequest) : Observable<any>{
-    const url = environment.serverUrl + environment.login;
-    return this.http.post(url, loginRequest).pipe(
+
+  myProfile() : Observable<any> {
+    const url = environment.serverUrl + environment.profile;
+    return this.http.get(url).pipe(
       map( response => {
         return response['data'];
       })
-    ) 
+    )
   }
 
-  
-  register(registerRequest: RegisterRequest) : Observable<any> {
-    const url = environment.serverUrl + environment.register;
-    return this.http.post(url, registerRequest).pipe(
-      map(response => {return response['data']}),
-      switchMap((response) => {
-        let loginRequest = new LoginRequest();
-        loginRequest.username = registerRequest.username;
-        loginRequest.password = registerRequest.password;
-        return this.login(loginRequest);
-      })
-    );
-  }
+
+//   updateMyProfile(): Observable<any> {
+    
+//   }
 
 
   logout() {

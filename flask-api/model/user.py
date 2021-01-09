@@ -13,7 +13,6 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
-    country = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     roles = db.relationship('Role', secondary=user_roles_table)
     ratings = db.relationship('Rating', backref='user', lazy=True)

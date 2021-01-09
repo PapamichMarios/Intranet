@@ -9,7 +9,6 @@ import { LoggedGuard } from './_guards/logged.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    canActivate: [LoggedGuard],
     loadChildren: () => import('./pages/auth/auth.module').then((m) => m.AuthModule),
   }
 ];

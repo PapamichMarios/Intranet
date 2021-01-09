@@ -4,5 +4,4 @@ export class RegisterRequest {
     email: string;
     firstName: string;
     lastName: string;
-    country: string;
 }

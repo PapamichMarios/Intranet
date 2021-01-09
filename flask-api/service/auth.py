@@ -30,13 +30,5 @@ class AuthService:
 
         return {
             'type': 'Bearer ',
-            'token': create_access_token(identity=credentials['username'])
+            'token': create_access_token(identity=credentials['username'], expires_delta=False)
         }
-
-    @staticmethod
-    def my_profile(username: str) -> dict:
-        profile = User.query.filter(User.username == username).first()
-        if not profile:
-            raise ResourceNotFound('Username not found')
-
-        return UserSchema().dump(profile)

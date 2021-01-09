@@ -42,11 +42,19 @@
 
         <span class="spacer"></span>
         <!-- Profile -->
-        <button *ngIf="loggedIn" mat-icon-button><i class="far fa-user"></i></button>
+        <button *ngIf="loggedIn" [matMenuTriggerFor]="menu" mat-icon-button><i class="far fa-user"></i></button>
+        <mat-menu #menu="matMenu">
+          <button routerLink="/auth/profile" mat-menu-item>My Profile</button>
+          <button mat-menu-item>My Ratings</button>
+        </mat-menu>
       </mat-toolbar>
 
       <div class="main-page">
-        <router-outlet></router-outlet>
+        <div class="row justify-content-center">
+          <div class="col-auto">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
       </div>
     </mat-sidenav-content>
   

@@ -22,10 +22,3 @@ def register() -> ApiResponse:
 @responds(schema=ApiResponseSchema)
 def login() -> ApiResponse:
     return ApiResponse(AuthService.authenticate(request.parsed_obj), True)
-
-
-@app.route('/profile', methods=['GET'])
-@jwt_required
-@responds(schema=ApiResponseSchema)
-def protected() -> ApiResponse:
-    return ApiResponse(AuthService.my_profile(get_jwt_identity()), True)

@@ -1,7 +1,11 @@
-  <mat-card>
-    <mat-card-title class="text-center mb-3">Register</mat-card-title>
+<mat-card>
+    <mat-card-title class="text-center mb-3">
+      My Profile
+      <button mat-icon-button (click)="toggleEdit()" class="pull-right top-button">
+        <i [ngClass]="edit ? 'fas fa-times' : 'fas fa-edit'"></i></button>
+    </mat-card-title>
     <mat-card-content class="text-center">
-      <form #registerForm="ngForm" (ngSubmit)="register()">
+      <form #profileForm="ngForm" (ngSubmit)="updateProfile()">
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
@@ -11,48 +15,11 @@
               #username="ngModel"
               minlength="3"
               required
-              [(ngModel)]="registerRequest.username"
+              [(ngModel)]="user.username"
+              [disabled]="!edit"
             >
             <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>  
             <mat-error *ngIf="username.hasError('minlength')">Username must be at least 3 characters</mat-error>  
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input 
-              matInput
-              type="password"
-              name="password"
-              #password="ngModel"
-              minlength="8"
-              required
-              [(ngModel)]="registerRequest.password"
-            >
-            <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>  
-            <mat-error *ngIf="password.hasError('minlength')">Password must be at least 8 characters</mat-error>  
-          </mat-form-field>
-        </div>
-
-        <div class="form-group">
-          <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input 
-              matInput
-              type="password"
-              name="confirmPassword"
-              #confirmPassword="ngModel"
-              minlength="8"
-              required
-              [(ngModel)]="confirmPasswordInput"
-            >
-            <mat-error *ngIf="confirmPassword.hasError('required')">Confirm Password is required</mat-error>  
-            <mat-error *ngIf="confirmPassword.hasError('minlength')">Confirm Password must be at least 8 characters</mat-error>  
-            <mat-error *ngIf="
-            (confirmPassword.dirty || confirmPassword.touched) && 
-            (password.dirty || password.touched) && 
-            registerRequest.password !== confirmPasswordInput">Password and Confirm Password do not match.</mat-error>
           </mat-form-field>
         </div>
 
@@ -66,7 +33,8 @@
               #email="ngModel"
               minlength="3"
               required
-              [(ngModel)]="registerRequest.email"
+              [(ngModel)]="user.email"
+              [disabled]="!edit"
             >
             <mat-error *ngIf="email.hasError('required')">Email is required</mat-error>  
             <mat-error *ngIf="email.hasError('minlength')">Email must be at least 3 characters</mat-error>  
@@ -83,7 +51,8 @@
               #firstName="ngModel"
               minlength="3"
               required
-              [(ngModel)]="registerRequest.firstName"
+              [(ngModel)]="user.firstName"
+              [disabled]="!edit"
             >
             <mat-error *ngIf="firstName.hasError('required')">First name is required</mat-error>  
             <mat-error *ngIf="firstName.hasError('minlength')">First name must be at least 3 characters</mat-error>  
@@ -99,17 +68,24 @@
               #lastName="ngModel"
               minlength="3"
               required
-              [(ngModel)]="registerRequest.lastName"
+              [(ngModel)]="user.lastName"
+              [disabled]="!edit"
             >
             <mat-error *ngIf="lastName.hasError('required')">Last name is required</mat-error>  
             <mat-error *ngIf="lastName.hasError('minlength')">Last name must be at least 3 characters</mat-error>  
           </mat-form-field>
         </div>
 
-        <div class="form-group">
-          <button mat-raised-button color="primary" [disabled]="registerForm.invalid">Register</button>
+        <div class="form-group" *ngIf="edit">
+          <button mat-raised-button color="primary" [disabled]="profileForm.invalid">Save</button>
         </div>
       </form>
     </mat-card-content>
-  </mat-card>
-  
+</mat-card>
+
+<mat-card class="mt-3">
+    <mat-card-title class="text-center mb-3">Change Password</mat-card-title>
+    <mat-card-content class="text-center">
+        
+    </mat-card-content>
+</mat-card>
