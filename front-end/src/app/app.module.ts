@@ -9,6 +9,7 @@ import { AuthService } from './_services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './_interceptors/error.interceptor';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
+import { LoggedGuard } from './_guards/logged.guard';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TokenInterceptor } from './_interceptors/token.interceptor';
   ],
   providers: [
     AuthService,
+    LoggedGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

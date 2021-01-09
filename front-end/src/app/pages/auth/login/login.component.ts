@@ -33,8 +33,10 @@ export class LoginComponent implements OnInit {
     )
     .subscribe(
       response => {
-        if (response != null)
-          this.router.navigateByUrl(environment.defaultUrl)
+        if (response != null) {
+          location.reload();
+          this.router.navigateByUrl(environment.defaultUrl);
+        }
       }
     )
   }

@@ -5,8 +5,14 @@
         [opened]="(isHandset$ | async) === false">
       <mat-toolbar> Movie DB</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item href="#"> <i class="fas fa-film mr-1"></i> Movies</a>
-        <a mat-list-item href="#" class="pull-down"> <i class="fas fa-sign-out-alt mr-1"></i> Logout</a>
+        <a mat-list-item href="#"><i class="fas fa-film mr-2"></i>Movies</a>
+        <!-- Logout -->
+        <a *ngIf="loggedIn" (click)="logout()" mat-list-item href="#" class="pull-down"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+        <!-- Login/Register-->
+        <div class="pull-down" style="width: 100%;">
+          <a *ngIf="!loggedIn" routerLink="/auth/login" mat-list-item href="#"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+          <a *ngIf="!loggedIn" mat-list-item href="#"><i class="fas fa-file-signature mr-2"></i>Register</a>
+        </div>
       </mat-nav-list>
     </mat-sidenav>
   
@@ -21,9 +27,22 @@
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
   
+        <form #searchForm (ngSubmit)="search()" style="width: 50%;">
+          <mat-form-field appearance="legacy" style="width: 100%;">
+            <input
+              matInput
+              name="search_"
+              #search_="ngModel"
+              placeholder="Search..."
+              [(ngModel)]="searchString"
+            />
+            <button mat-icon-button matSuffix><i class="fas fa-search"></i></button>
+          </mat-form-field>
+        </form>
+
         <span class="spacer"></span>
         <!-- Profile -->
-        <button mat-icon-button><i class="far fa-user"></i></button>
+        <button *ngIf="loggedIn" mat-icon-button><i class="far fa-user"></i></button>
       </mat-toolbar>
 
       <div class="main-page">

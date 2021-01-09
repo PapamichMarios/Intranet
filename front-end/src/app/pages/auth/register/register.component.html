@@ -3,54 +3,129 @@
       <mat-card>
         <mat-card-title class="text-center mb-3">Register</mat-card-title>
         <mat-card-content class="text-center">
-          <form>
+          <form #registerForm="ngForm" (ngSubmit)="register()">
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>Username</mat-label>
-                <input matInput>
+                <input 
+                  matInput
+                  name="username"
+                  #username="ngModel"
+                  minlength="3"
+                  required
+                  [(ngModel)]="registerRequest.username"
+                >
+                <mat-error *ngIf="username.hasError('required')">Username is required</mat-error>  
+                <mat-error *ngIf="username.hasError('minlength')">Username must be at least 3 characters</mat-error>  
               </mat-form-field>
             </div>
   
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  type="password"
+                  name="password"
+                  #password="ngModel"
+                  minlength="8"
+                  required
+                  [(ngModel)]="registerRequest.password"
+                >
+                <mat-error *ngIf="password.hasError('required')">Password is required</mat-error>  
+                <mat-error *ngIf="password.hasError('minlength')">Password must be at least 8 characters</mat-error>  
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>Confirm Password</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  type="password"
+                  name="confirmPassword"
+                  #confirmPassword="ngModel"
+                  minlength="8"
+                  required
+                  [(ngModel)]="confirmPasswordInput"
+                >
+                <mat-error *ngIf="confirmPassword.hasError('required')">Confirm Password is required</mat-error>  
+                <mat-error *ngIf="confirmPassword.hasError('minlength')">Confirm Password must be at least 8 characters</mat-error>  
+                <mat-error *ngIf="
+                (confirmPassword.dirty || confirmPassword.touched) && 
+                (password.dirty || password.touched) && 
+                registerRequest.password !== confirmPasswordInput">Password and Confirm Password do not match.</mat-error>
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>E-mail</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  name="email"
+                  email
+                  #email="ngModel"
+                  minlength="3"
+                  required
+                  [(ngModel)]="registerRequest.email"
+                >
+                <mat-error *ngIf="email.hasError('required')">Email is required</mat-error>  
+                <mat-error *ngIf="email.hasError('minlength')">Email must be at least 3 characters</mat-error>  
+                <mat-error *ngIf="email.hasError('email')">Not valid email</mat-error>  
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>First Name</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  name="firstName"
+                  #firstName="ngModel"
+                  minlength="3"
+                  required
+                  [(ngModel)]="registerRequest.firstName"
+                >
+                <mat-error *ngIf="firstName.hasError('required')">First name is required</mat-error>  
+                <mat-error *ngIf="firstName.hasError('minlength')">First name must be at least 3 characters</mat-error>  
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>Last Name</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  name="lastName"
+                  #lastName="ngModel"
+                  minlength="3"
+                  required
+                  [(ngModel)]="registerRequest.lastName"
+                >
+                <mat-error *ngIf="lastName.hasError('required')">Last name is required</mat-error>  
+                <mat-error *ngIf="lastName.hasError('minlength')">Last name must be at least 3 characters</mat-error>  
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field appearance="outline">
                 <mat-label>Country</mat-label>
-                <input type="password" matInput>
+                <input 
+                  matInput
+                  name="country"
+                  #country="ngModel"
+                  minlength="3"
+                  required
+                  [(ngModel)]="registerRequest.country"
+                >
+                <mat-error *ngIf="country.hasError('required')">Country is required</mat-error>  
+                <mat-error *ngIf="country.hasError('minlength')">Country must be at least 3 characters</mat-error>  
               </mat-form-field>
+            </div>
+
+            <div class="form-group">
+              <button mat-raised-button color="primary" [disabled]="registerForm.invalid">Register</button>
             </div>
           </form>
         </mat-card-content>
