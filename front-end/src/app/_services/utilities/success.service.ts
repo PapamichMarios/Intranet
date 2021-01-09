@@ -10,7 +10,7 @@ export class SuccessService {
 
   throwSuccess(msg: string) {
     this.snackBar.open(msg, 'X', {
-      panelClass: ['mat-toolbar', 'mat-success'],
+      panelClass: ['mat-toolbar', 'mat-accent'],
       duration: 10000
     });
   }

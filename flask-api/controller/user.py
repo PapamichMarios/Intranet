@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask import request
 from app import app
 from model.response import ApiResponse
+from schema.change_password import ChangePasswordSchema
 from schema.response import ApiResponseSchema
 from schema.user import UserSchema
 from service.auth import AuthService
@@ -21,4 +22,14 @@ def profile() -> ApiResponse:
 @accepts(schema=UserSchema)
 @responds(schema=ApiResponseSchema)
 def update_profile() -> ApiResponse:
-    return ApiResponse(UserService.update_profile(request.parsed_obj))
+    return ApiResponse(UserService.update_profile(request.parsed_obj), True)
+
+
+@app.route('/change_password', methods=['PUT'])
+@jwt_required
+@accepts(schema=ChangePasswordSchema)
+@responds(schema=ApiResponseSchema)
+def change_password() -> ApiResponse:
+    return ApiResponse(UserService.change_password(request.parsed_obj['id'],
+                                                   request.parsed_obj['old_password'],
+                                                   request.parsed_obj['password']), True)

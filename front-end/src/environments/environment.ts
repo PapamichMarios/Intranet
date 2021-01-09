@@ -14,7 +14,8 @@ export const environment = {
   // auth
   login: "login",
   register: "register",
-  profile: "profile"
+  profile: "profile",
+  change_password: "change_password"
 };
 
 /*

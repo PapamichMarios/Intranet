@@ -2,6 +2,7 @@ from sqlalchemy import or_
 
 from app import db, bcrypt
 from enums.role import RoleEnum
+from exception.passwords_match import PasswordsMatchException
 from exception.resource_not_found import ResourceNotFound
 from exception.username_email_exists import UsernameEmailExists
 from model.role import Role
@@ -48,8 +49,21 @@ class UserService:
         return UserSchema().dump(profile)
 
     @staticmethod
+    def change_password(user_id, old_password, password) -> str:
+        user = User.query.get(user_id)
+        if not user:
+            raise ResourceNotFound('User not found')
+
+        if not bcrypt.check_password_hash(user.password, old_password):
+            raise PasswordsMatchException('Passwords do not match')
+
+        user.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        db.session.commit()
+        return "Password changed successfully"
+
+    @staticmethod
     def update_profile(user: User) -> dict:
-        db_user = User.query.filter(User.id == user['id'])
+        db_user = User.query.get(user['id'])
         if not db_user:
             raise ResourceNotFound('User not found')
 
@@ -57,7 +71,6 @@ class UserService:
         db_user.first_name = user['first_name']
         db_user.last_name = user['last_name']
         db_user.email = user['email']
-        db_user.roles = user['roles']
 
         db.session.commit()
         return UserSchema().dump(db_user)

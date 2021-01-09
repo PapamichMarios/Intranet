@@ -8,5 +8,6 @@ export const Exceptions = {
     "BadRequestException": "Request was not in proper format. Please contact support. ",
     "BadCredentialsException": "Invalid username or password",
     "InternalServerErrorException": "Something went wrong. Please try again later. ",
-    "UnauthorizedException": "You are not authorized to access this resource. "
+    "UnauthorizedException": "You are not authorized to access this resource. ",
+    "PasswordsMatchException": "The password given does not match the one saved in the database."
 }

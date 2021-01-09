@@ -15,7 +15,6 @@ class AuthService:
     def register(new_user: User) -> dict:
         return UserService.create(new_user)
 
-
     @staticmethod
     def authenticate(credentials: LoginSchema) -> dict:
 

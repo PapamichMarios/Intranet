@@ -2,8 +2,14 @@ from flask import json, jsonify
 from werkzeug.exceptions import InternalServerError, BadRequest, Unauthorized
 from app import app, jwt
 from exception.bad_credentials import BadCredentials
+from exception.passwords_match import PasswordsMatchException
 from exception.resource_not_found import ResourceNotFound
 from exception.username_email_exists import UsernameEmailExists
+
+
+@app.errorhandler(PasswordsMatchException)
+def handle_passwords_match_exception(e):
+    return jsonify(e.to_dict()), e.code
 
 
 @app.errorhandler(ResourceNotFound)
