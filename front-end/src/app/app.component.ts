@@ -9,6 +9,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
   title = 'front-end';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -18,4 +19,7 @@ export class AppComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit(): void {
+  }
 }
