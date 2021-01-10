@@ -1,6 +1,7 @@
-<mat-card>
-    <mat-card-title class="text-center mb-3">
-      My Profile
+<h1>My Profile</h1>
+<div class="col-4 pl-0">
+  <mat-card class="text-center">
+    <mat-card-title style="float:right">
       <button mat-icon-button (click)="toggleEdit()" class="pull-right top-button">
         <i [ngClass]="edit ? 'fas fa-times' : 'fas fa-edit'"></i></button>
     </mat-card-title>
@@ -81,10 +82,12 @@
         </div>
       </form>
     </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>
 
-<mat-card class="mt-3">
-    <mat-card-title class="text-center mb-3">Change Password</mat-card-title>
+<h1 class="mt-3">Change Password</h1>
+<div class="col-4 pl-0">
+  <mat-card class="text-center">
     <mat-card-content class="text-center">
       <form #changePasswordForm="ngForm" (ngSubmit)="updatePassword()">
         <div class="form-group">
@@ -147,4 +150,5 @@
         </div>
       </form>
     </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>

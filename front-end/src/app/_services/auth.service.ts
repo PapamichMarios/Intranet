@@ -44,6 +44,7 @@ export class AuthService {
 
   logout() {
     this.localStorageService.removeAuthFromLocalStorage();
+    this.localStorageService.removeRolesFromLocalStorage();
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
