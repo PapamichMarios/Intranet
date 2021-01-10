@@ -15,7 +15,10 @@ export const environment = {
   login: "login",
   register: "register",
   profile: "profile",
-  change_password: "change_password"
+  change_password: "change_password",
+
+  // admin
+  users_all: "/users/all"
 };
 
 /*

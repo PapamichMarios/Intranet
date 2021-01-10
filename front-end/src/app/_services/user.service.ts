@@ -20,6 +20,15 @@ export class UserService {
     private localStorageService: LocalStorageService,
     private router: Router) { }
 
+  
+  getAllUsers() : Observable<any> {
+    const url = environment.serverUrl + environment.users_all;
+    return this.http.get(url).pipe(
+      map(response => {
+        return response['data'];
+      })
+    )
+  }
 
   myProfile() : Observable<any> {
     const url = environment.serverUrl + environment.profile;

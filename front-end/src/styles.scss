@@ -7,6 +7,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: 1rem;
 }
 
+table {
+    width: 100%;
+
+    td {
+        text-align: left;
+    }
+}
+
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
 
