@@ -2,6 +2,7 @@ from app import db, bcrypt, app
 from enums.role import RoleEnum
 from model.genre import Genre
 from model.movie import Movie
+from model.rating import Rating
 from model.role import Role
 from model.user import User
 
@@ -34,7 +35,7 @@ class ConfigurationService:
             db.session.add(crime)
             db.session.add(animation)
 
-        # create admin
+        # create admin & users
         if not User.query.first():
             password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).decode('utf-8')
             admin = User(id=1,
@@ -45,7 +46,35 @@ class ConfigurationService:
                          last_name="Admin")
             admin.roles = [Role.query.get(1)]
 
+            password = bcrypt.generate_password_hash('password').decode('utf-8')
+            user1 = User(id=2,
+                         username="user1",
+                         password=password,
+                         email="john@doe1",
+                         first_name="John",
+                         last_name="Doe")
+            user1.roles = [Role.query.get(2)]
+
+            user2 = User(id=3,
+                         username="user2",
+                         password=password,
+                         email="john@doe2",
+                         first_name="John",
+                         last_name="Doe")
+            user2.roles = [Role.query.get(2)]
+
+            user3 = User(id=4,
+                         username="user3",
+                         password=password,
+                         email="john@doe3",
+                         first_name="John",
+                         last_name="Doe")
+            user3.roles = [Role.query.get(2)]
+
             db.session.add(admin)
+            db.session.add(user1)
+            db.session.add(user2)
+            db.session.add(user3)
 
         # create movies
         if not Movie.query.first():
@@ -94,5 +123,50 @@ class ConfigurationService:
             db.session.add(joker)
             db.session.add(lion_king)
             db.session.add(blackkklansman)
+
+        # create ratings
+        if not Rating.query.first():
+            joker_rating1 = Rating(id=1,
+                                   rating=5,
+                                   comment="Amazing Movie!",
+                                   movie_id=1,
+                                   user_id=2)
+
+            joker_rating2 = Rating(id=2,
+                                   rating=1,
+                                   comment="Waste of time!",
+                                   movie_id=1,
+                                   user_id=3)
+
+            joker_rating3 = Rating(id=3,
+                                   rating=2.5,
+                                   comment="Meh..",
+                                   movie_id=1,
+                                   user_id=4)
+
+            lion_king_rating1 = Rating(id=4,
+                                       rating=5,
+                                       comment="Amazing Movie!",
+                                       movie_id=2,
+                                       user_id=2)
+
+            lion_king_rating2 = Rating(id=5,
+                                       rating=1,
+                                       comment="Waste of time!",
+                                       movie_id=2,
+                                       user_id=3)
+
+            lion_king_rating3 = Rating(id=6,
+                                       rating=2.5,
+                                       comment="Meh..",
+                                       movie_id=2,
+                                       user_id=4)
+
+            db.session.add(joker_rating1)
+            db.session.add(joker_rating2)
+            db.session.add(joker_rating3)
+            db.session.add(lion_king_rating1)
+            db.session.add(lion_king_rating2)
+            db.session.add(lion_king_rating3)
 
         db.session.commit()

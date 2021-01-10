@@ -6,9 +6,11 @@
       <mat-toolbar> Movie DB</mat-toolbar>
       <mat-nav-list>
         <a mat-list-item routerLink="/movies"><i class="fas fa-film mr-2"></i>Movies</a>
-        <h2 matSubheader>Admin</h2>
-        <mat-divider></mat-divider>
-        <a *ngIf="isAdmin" routerLink="/admin/users" mat-list-item><i class="fas fa-users-cog mr-2"></i>Users</a>
+        <ng-container *ngIf="isAdmin">
+          <h2 matSubheader>Admin</h2>
+          <mat-divider></mat-divider>
+          <a routerLink="/admin/users" mat-list-item><i class="fas fa-users-cog mr-2"></i>Users</a>
+        </ng-container>
         <!-- Logout -->
         <a *ngIf="loggedIn" (click)="logout()" mat-list-item class="pull-down"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
         <!-- Login/Register-->
@@ -48,7 +50,7 @@
         <button *ngIf="loggedIn" [matMenuTriggerFor]="menu" mat-icon-button><i class="far fa-user"></i></button>
         <mat-menu #menu="matMenu">
           <button routerLink="/auth/profile" mat-menu-item>My Profile</button>
-          <button mat-menu-item>My Ratings</button>
+          <button routerLink="/auth/my-ratings" mat-menu-item>My Ratings</button>
         </mat-menu>
       </mat-toolbar>
 

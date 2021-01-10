@@ -24,11 +24,7 @@ const routes: Routes = [
     path: 'movies',
     component: MoviesComponent
   },
-  {
-    path: 'top-movies',
-    component: TopMoviesComponent
-  },
-  {path: '**', redirectTo: 'top-movies'}
+  {path: '**', redirectTo: 'movies'}
 ];
 
 @NgModule({

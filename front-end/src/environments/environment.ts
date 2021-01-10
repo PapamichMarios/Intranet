@@ -9,7 +9,7 @@ export const environment = {
   USERDATA_KEY: 'authf649fc9a5f55',
 
   serverUrl: "http://127.0.0.1:5000/",
-  defaultUrl: "/",
+  defaultUrl: "/movies",
   
   // auth
   login: "login",

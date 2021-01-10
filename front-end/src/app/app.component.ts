@@ -38,7 +38,8 @@ export class AppComponent {
 
   refreshAuthentication() {
     this.loggedIn = this.localStorageService.authFromLocalStorage;
-    this.isAdmin = this.localStorageService.rolesFromLocalStorage.find(role => RoleEnum[role.name] === RoleEnum.ROLE_ADMINISTRATOR)
+    let roles = this.localStorageService.rolesFromLocalStorage;
+    this.isAdmin = roles != null ? roles.find(role => RoleEnum[role.name] === RoleEnum.ROLE_ADMINISTRATOR) : null;
   }
 
   search() {

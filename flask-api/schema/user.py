@@ -1,6 +1,7 @@
 from marshmallow import Schema, fields, validate
 
 from schema.rating import RatingSchema
+from schema.rating_movie import RatingMovieSchema
 from schema.role import RoleSchema
 
 
@@ -12,4 +13,4 @@ class UserSchema(Schema):
     username = fields.String(attribute="username", validate=validate.Length(min=3, max=256), required=True)
     password = fields.String(attribute="password", validate=validate.Length(min=8, max=256), required=True)
     roles = fields.Nested(RoleSchema, many=True)
-    ratings = fields.Nested(RatingSchema, many=True)
+    ratings = fields.Nested(RatingMovieSchema, many=True)
