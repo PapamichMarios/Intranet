@@ -1,6 +1,5 @@
 from marshmallow import Schema, fields, validate
 
-from schema.rating import RatingSchema
 from schema.rating_movie import RatingMovieSchema
 from schema.role import RoleSchema
 

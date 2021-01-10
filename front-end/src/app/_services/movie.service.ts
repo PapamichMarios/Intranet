@@ -27,12 +27,20 @@ export class MovieService {
       })
     )
   }
-
   
   getMovieByName(name: string): Observable<any> {
     const url = environment.serverUrl + environment.movies_by_name;
     let params = new HttpParams().append('name', name);
     return this.http.get(url, {params: params}).pipe(
+        map(response=> {
+            return response['data'];
+        })
+    )
+  }
+
+  getMovieById(id: string): Observable<any> {
+    const url = environment.serverUrl + environment.movies_by_id + id;
+    return this.http.get(url).pipe(
         map(response=> {
             return response['data'];
         })

@@ -7,7 +7,7 @@
                     <img src="./assets/images/no-image.png" class="max-h-140px">
                 </div>
                 <div class="col">
-                    <p>{{movie.name + ' (' + movie.duration + ' minutes)'}} - {{movie.year}}</p>
+                    <p>{{movie.name + ' (' + movie.year + ')'}} - {{movie.duration + ' minutes'}}</p>
                     <p>{{movie.description}}</p>
                     <p><span *ngFor="let genre of movie.genres">{{genre.name + ' '}}</span></p>
                 </div>

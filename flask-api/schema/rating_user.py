@@ -1,10 +1,10 @@
 from marshmallow import Schema, fields
 
-from schema.movie_no_ratings import MovieNoRatingsSchema
+from schema.user import UserSchema
 
 
-class RatingMovieSchema(Schema):
+class RatingUserSchema(Schema):
     id = fields.Number(attribute="id")
     rating = fields.Float(attribute="rating", required=True)
     comment = fields.String(attribute="comment", required=False)
-    movie = fields.Nested(MovieNoRatingsSchema)
+    user = fields.Nested(UserSchema)
