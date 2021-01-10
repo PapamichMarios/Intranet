@@ -5,7 +5,11 @@
         [opened]="(isHandset$ | async) === false">
       <mat-toolbar> Movie DB</mat-toolbar>
       <mat-nav-list>
-        <a mat-list-item routerLink="/movies"><i class="fas fa-film mr-2"></i>Movies</a>
+        <a mat-list-item [matMenuTriggerFor]="movies"><i class="fas fa-film mr-2"></i>Movies</a>
+        <mat-menu #movies="matMenu">
+          <button routerLink="/movies" mat-menu-item>All</button>
+          <button *ngFor="let genre of genres" (click)="this.router.navigateByUrl('/movies?genre=' + genre.name)" mat-menu-item>{{genre.name}}</button>
+        </mat-menu>
         <ng-container *ngIf="isAdmin">
           <h2 matSubheader>Admin</h2>
           <mat-divider></mat-divider>

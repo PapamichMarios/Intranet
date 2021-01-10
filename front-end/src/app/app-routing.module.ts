@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
+import { MovieProfileComponent } from './pages/movie-profile/movie-profile.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { TopMoviesComponent } from './pages/top-movies/top-movies.component';
 import { AdminGuard } from './_guards/admin.guard';
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'movies',
     component: MoviesComponent
+  },
+  {
+    path: 'movie/:id',
+    component: MovieProfileComponent
   },
   {path: '**', redirectTo: 'movies'}
 ];

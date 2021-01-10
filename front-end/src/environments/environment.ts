@@ -18,7 +18,14 @@ export const environment = {
   change_password: "change_password",
 
   // admin
-  users_all: "/users/all"
+  users_all: "/users/all",
+
+  // all
+  movies_all: "/movies/all",
+  movies_by_id: 'movies/',
+  movies_by_name: '/movies/search',
+  movies_by_genre: '/movies/all/genre/',
+  movie_genres: '/movies/genres'
 };
 
 /*
