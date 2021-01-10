@@ -14,6 +14,7 @@
           <h2 matSubheader>Admin</h2>
           <mat-divider></mat-divider>
           <a routerLink="/admin/users" mat-list-item><i class="fas fa-users-cog mr-2"></i>Users</a>
+          <a routerLink="/admin/movies/create" mat-list-item><i class="fas fa-plus mr-2"></i>Create Movie</a>
         </ng-container>
         <!-- Logout -->
         <a *ngIf="loggedIn" (click)="logout()" mat-list-item class="pull-down"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>

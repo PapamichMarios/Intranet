@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Movie } from '../_models/movie.model';
 import { User } from '../_models/user.model';
 import { ChangePasswordRequest } from '../_requests/auth/change-password.request';
 import { LoginRequest } from '../_requests/auth/login.request';
@@ -18,7 +19,15 @@ export class MovieService {
   constructor(
     private http: HttpClient) { }
 
-  
+  createMovie(movie: Movie) : Observable<any> {
+    const url = environment.serverUrl + environment.movies_create;
+    return this.http.post(url, movie).pipe(
+      map(response => {
+        return response['data'];
+      })
+    )
+  }
+
   getAllMovies() : Observable<any> {
     const url = environment.serverUrl + environment.movies_all;
     return this.http.get(url).pipe(

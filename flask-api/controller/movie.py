@@ -1,9 +1,10 @@
 from flask import request
-from flask_accepts import responds
+from flask_accepts import responds, accepts
 from flask_jwt_extended import jwt_required
 
 from app import app
 from model.response import ApiResponse
+from schema.movie import MovieSchema
 from schema.response import ApiResponseSchema
 from service.auth import AuthService
 from service.genre import GenreService
@@ -16,6 +17,15 @@ def get_all_movies() -> ApiResponse:
     return ApiResponse(MovieService.get_all(), True)
 
 
+@app.route('/movies/create', methods=['POST'])
+@jwt_required
+@accepts(schema=MovieSchema)
+@responds(schema=ApiResponseSchema)
+def create_movie() -> ApiResponse:
+    AuthService.is_admin()
+    return ApiResponse(MovieService.create(request.parsed_obj), True)
+
+
 @app.route('/movies/all/genre/<genre_name>', methods=['GET'])
 @responds(schema=ApiResponseSchema)
 def get_all_movies_by_genre(genre_name) -> ApiResponse:
@@ -23,7 +33,6 @@ def get_all_movies_by_genre(genre_name) -> ApiResponse:
 
 
 @app.route('/movies/<int:movie_id>', methods=['GET'])
-@jwt_required
 @responds(schema=ApiResponseSchema)
 def get_movie_by_id(movie_id) -> ApiResponse:
     return ApiResponse(MovieService.get_by_id(movie_id), True)

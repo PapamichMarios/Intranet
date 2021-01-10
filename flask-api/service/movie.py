@@ -14,8 +14,10 @@ class MovieService:
             name=movie['name'],
             description=movie['description'],
             year=movie['year'],
-            duration=movie['duration'],
-            genres=movie['genres'])
+            duration=movie['duration'])
+
+        for genre in movie['genres']:
+            new_movie.genres.append(Genre.query.get(genre['id']))
 
         db.session.add(new_movie)
         db.session.commit()

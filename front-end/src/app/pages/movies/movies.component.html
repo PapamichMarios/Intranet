@@ -1,5 +1,5 @@
 <h1>Movies</h1>
-<mat-list role="list">
+<mat-list role="list" *ngIf="movies">
     <ng-container *ngFor="let movie of movies">
         <mat-list-item  class="mt-3" role="listitem" style="height: auto; cursor: pointer;" (click)="redirectToProfile(movie.id)">
             <div class="row" style="width: 100%;">

@@ -1,0 +1,83 @@
+<h1>Create a movie</h1>
+  <mat-card class="text-center">
+    <mat-card-content class="text-center">
+      <form #movieCreateForm="ngForm" (ngSubmit)="create()">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input 
+              matInput
+              name="name"
+              #name="ngModel"
+              minlength="3"
+              required
+              [(ngModel)]="movie.name"
+            >
+            <mat-error *ngIf="name.hasError('required')">Name is required</mat-error>  
+            <mat-error *ngIf="name.hasError('minlength')">Name must be at least 3 characters</mat-error>  
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea 
+              matInput
+              name="description"
+              #description="ngModel"
+              minlength="8"
+              required
+              [(ngModel)]="movie.description"
+            ></textarea>
+            <mat-error *ngIf="description.hasError('required')">Description is required</mat-error>  
+            <mat-error *ngIf="description.hasError('minlength')">Description must be at least 8 characters</mat-error>  
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Year</mat-label>
+            <input 
+              matInput
+              type="number"
+              name="year"
+              #year="ngModel"
+              maxlength="4"
+              required
+              [(ngModel)]="movie.year"
+            >
+            <mat-error *ngIf="year.hasError('required')">Year is required</mat-error>  
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Duration</mat-label>
+            <input 
+              matInput
+              type="number"
+              name="duration"
+              #duration="ngModel"
+              maxlength="3"
+              required
+              [(ngModel)]="movie.duration"
+            >
+            <mat-error *ngIf="duration.hasError('required')">Duration is required</mat-error>  
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Genres</mat-label>
+                <mat-select #genre="ngModel" name="genre" [(ngModel)]="movie.genres" multiple>
+                  <mat-option *ngFor="let genre_ of genres" [value]="genre_">{{genre_.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <button mat-raised-button color="primary" [disabled]="movieCreateForm.invalid">Create</button>
+        </div>
+      </form>
+    </mat-card-content>
+</mat-card>
