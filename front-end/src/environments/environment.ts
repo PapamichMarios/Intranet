@@ -23,6 +23,7 @@ export const environment = {
   // all
   movies_create: "/movies/create",
   movies_all: "/movies/all",
+  movies_rate: "/movies/rate",
   movies_by_id: '/movies/',
   movies_by_name: '/movies/search',
   movies_by_genre: '/movies/all/genre/',

@@ -1,10 +1,12 @@
 from flask import request
 from flask_accepts import responds, accepts
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity, jwt_optional
 
 from app import app
 from model.response import ApiResponse
 from schema.movie import MovieSchema
+from schema.rating_movie import RatingMovieSchema
+from schema.rating_movie_id import RatingMovieIdSchema
 from schema.response import ApiResponseSchema
 from service.auth import AuthService
 from service.genre import GenreService
@@ -33,9 +35,10 @@ def get_all_movies_by_genre(genre_name) -> ApiResponse:
 
 
 @app.route('/movies/<int:movie_id>', methods=['GET'])
+@jwt_optional
 @responds(schema=ApiResponseSchema)
-def get_movie_by_id(movie_id) -> ApiResponse:
-    return ApiResponse(MovieService.get_by_id(movie_id), True)
+def get_movie_by_id_logged_in(movie_id) -> ApiResponse:
+    return ApiResponse(MovieService.get_by_id(movie_id, get_jwt_identity()), True)
 
 
 @app.route('/movies/search', methods=['GET'])
@@ -48,3 +51,11 @@ def search():
 @responds(schema=ApiResponseSchema)
 def movie_genres():
     return ApiResponse(GenreService.get_movie_genres_all(), True)
+
+
+@app.route('/movies/rate', methods=['POST'])
+@jwt_required
+@accepts(schema=RatingMovieIdSchema)
+@responds(schema=ApiResponseSchema)
+def rate_movie() -> ApiResponse:
+    return ApiResponse(MovieService.rate_movie(get_jwt_identity(), request.parsed_obj), True)

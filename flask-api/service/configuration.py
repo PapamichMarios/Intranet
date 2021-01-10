@@ -126,38 +126,32 @@ class ConfigurationService:
 
         # create ratings
         if not Rating.query.first():
-            joker_rating1 = Rating(id=1,
-                                   rating=5,
+            joker_rating1 = Rating(rating=5,
                                    comment="Amazing Movie!",
                                    movie_id=1,
                                    user_id=2)
 
-            joker_rating2 = Rating(id=2,
-                                   rating=1,
+            joker_rating2 = Rating(rating=1,
                                    comment="Waste of time!",
                                    movie_id=1,
                                    user_id=3)
 
-            joker_rating3 = Rating(id=3,
-                                   rating=2.5,
+            joker_rating3 = Rating(rating=2.5,
                                    comment="Meh..",
                                    movie_id=1,
                                    user_id=4)
 
-            lion_king_rating1 = Rating(id=4,
-                                       rating=5,
+            lion_king_rating1 = Rating(rating=5,
                                        comment="Amazing Movie!",
                                        movie_id=2,
                                        user_id=2)
 
-            lion_king_rating2 = Rating(id=5,
-                                       rating=1,
+            lion_king_rating2 = Rating(rating=1,
                                        comment="Waste of time!",
                                        movie_id=2,
                                        user_id=3)
 
-            lion_king_rating3 = Rating(id=6,
-                                       rating=2.5,
+            lion_king_rating3 = Rating(rating=2.5,
                                        comment="Meh..",
                                        movie_id=2,
                                        user_id=4)

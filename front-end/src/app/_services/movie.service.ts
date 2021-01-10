@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Movie } from '../_models/movie.model';
+import { Rating } from '../_models/rating.model';
 import { User } from '../_models/user.model';
 import { ChangePasswordRequest } from '../_requests/auth/change-password.request';
 import { LoginRequest } from '../_requests/auth/login.request';
@@ -74,4 +75,12 @@ export class MovieService {
     )
   }
   
+  rateMovie(rating: Rating): Observable<any> {
+    const url = environment.serverUrl + environment.movies_rate;
+    return this.http.post(url, rating).pipe(
+        map(response => {
+            return response['data'];
+        })
+    )
+  }
 }

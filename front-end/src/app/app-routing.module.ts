@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { MovieProfileComponent } from './pages/movie-profile/movie-profile.component';
 import { MoviesComponent } from './pages/movies/movies.component';
+import { RateMovieComponent } from './pages/rate-movie/rate-movie.component';
 import { TopMoviesComponent } from './pages/top-movies/top-movies.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AuthGuard } from './_guards/auth.guard';
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'movie/:id',
     component: MovieProfileComponent
+  },
+  {
+    path: 'movie/:id/rate',
+    canActivate: [AuthGuard],
+    component: RateMovieComponent
   },
   {path: '**', redirectTo: 'movies'}
 ];

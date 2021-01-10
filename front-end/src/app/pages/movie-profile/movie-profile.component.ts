@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from 'src/app/_models/movie.model';
+import { User } from 'src/app/_models/user.model';
+import { LocalStorageService } from 'src/app/_services/local-storage.service';
 import { MovieService } from 'src/app/_services/movie.service';
 
 @Component({
@@ -11,14 +13,19 @@ import { MovieService } from 'src/app/_services/movie.service';
 export class MovieProfileComponent implements OnInit {
 
   movie: Movie;
+  hasRated: boolean;
+  loggedIn: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private localStorageService: LocalStorageService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
     this.movie = new Movie();
+    this.loggedIn = this.localStorageService.authFromLocalStorage;
     let movieId = this.activatedRoute.snapshot.paramMap.get('id');
     this.getMovieById(movieId);
   }
@@ -27,7 +34,8 @@ export class MovieProfileComponent implements OnInit {
     this.movieService.getMovieById(movieId).subscribe(
       response => {
         console.log(response);
-        this.movie = response;
+        this.movie = response.movie;
+        this.hasRated = response.hasRated;
       }
     )
   }

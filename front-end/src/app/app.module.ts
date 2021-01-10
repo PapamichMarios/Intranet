@@ -16,13 +16,15 @@ import { AdminGuard } from './_guards/admin.guard';
 import { Auth } from './_models/auth.model';
 import { AuthGuard } from './_guards/auth.guard';
 import { TopMoviesComponent } from './pages/top-movies/top-movies.component';
+import { RateMovieComponent } from './pages/rate-movie/rate-movie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MoviesComponent,
     MovieProfileComponent,
-    TopMoviesComponent
+    TopMoviesComponent,
+    RateMovieComponent
   ],
   imports: [
     BrowserModule,
