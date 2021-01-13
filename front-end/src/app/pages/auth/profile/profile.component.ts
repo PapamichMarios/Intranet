@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Auth } from 'src/app/_models/auth.model';
 import { User } from 'src/app/_models/user.model';
 import { ChangePasswordRequest } from 'src/app/_requests/auth/change-password.request';
@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
       console.log(response);
       this.successService.throwSuccess('Profile updated successfully! Please login again.');
       this.authService.logout();
+      location.reload();
     });
   }
 

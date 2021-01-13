@@ -1,4 +1,5 @@
 from app import db
+from exception.movie_exists import MovieExists
 from exception.resource_not_found import ResourceNotFound
 from model.genre import Genre
 from model.movie import Movie
@@ -15,6 +16,11 @@ class MovieService:
 
     @staticmethod
     def create(movie: Movie) -> dict:
+
+        db_movie = Movie.query.filter(Movie.name == movie['name'])
+        if db_movie:
+            raise MovieExists("Movie already exists")
+
         new_movie = Movie(
             name=movie['name'],
             description=movie['description'],

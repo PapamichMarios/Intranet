@@ -68,6 +68,14 @@ class UserService:
         if not db_user:
             raise ResourceNotFound('User not found')
 
+        username_exists = User.query.filter(User.username == user['username']).first()
+        if username_exists and username_exists.id != db_user.id:
+            raise UsernameEmailExists(type="UsernameExistsException", message="Username already exists")
+
+        email_exists = User.query.filter(User.email == user['email']).first()
+        if email_exists and email_exists.id != db_user.id:
+            raise UsernameEmailExists(type="EmailExistsException", message="Email already exists")
+
         db_user.username = user['username']
         db_user.first_name = user['first_name']
         db_user.last_name = user['last_name']

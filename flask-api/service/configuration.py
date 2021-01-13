@@ -40,7 +40,7 @@ class ConfigurationService:
             password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).decode('utf-8')
             admin = User(username="admin",
                          password=password,
-                         email="admin@admin",
+                         email="admin@admin.db",
                          first_name="Admin",
                          last_name="Admin")
             admin.roles = [Role.query.get(1)]
@@ -48,21 +48,21 @@ class ConfigurationService:
             password = bcrypt.generate_password_hash('password').decode('utf-8')
             user1 = User(username="user1",
                          password=password,
-                         email="john@doe1",
+                         email="john@doe1.db",
                          first_name="John",
                          last_name="Doe")
             user1.roles = [Role.query.get(2)]
 
             user2 = User(username="user2",
                          password=password,
-                         email="john@doe2",
+                         email="john@doe2.db",
                          first_name="John",
                          last_name="Doe")
             user2.roles = [Role.query.get(2)]
 
             user3 = User(username="user3",
                          password=password,
-                         email="john@doe3",
+                         email="john@doe3.db",
                          first_name="John",
                          last_name="Doe")
             user3.roles = [Role.query.get(2)]
