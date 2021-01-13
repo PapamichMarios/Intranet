@@ -38,8 +38,7 @@ class ConfigurationService:
         # create admin & users
         if not User.query.first():
             password = bcrypt.generate_password_hash(app.config['ADMIN_PASSWORD']).decode('utf-8')
-            admin = User(id=1,
-                         username="admin",
+            admin = User(username="admin",
                          password=password,
                          email="admin@admin",
                          first_name="Admin",
@@ -47,24 +46,21 @@ class ConfigurationService:
             admin.roles = [Role.query.get(1)]
 
             password = bcrypt.generate_password_hash('password').decode('utf-8')
-            user1 = User(id=2,
-                         username="user1",
+            user1 = User(username="user1",
                          password=password,
                          email="john@doe1",
                          first_name="John",
                          last_name="Doe")
             user1.roles = [Role.query.get(2)]
 
-            user2 = User(id=3,
-                         username="user2",
+            user2 = User(username="user2",
                          password=password,
                          email="john@doe2",
                          first_name="John",
                          last_name="Doe")
             user2.roles = [Role.query.get(2)]
 
-            user3 = User(id=4,
-                         username="user3",
+            user3 = User(username="user3",
                          password=password,
                          email="john@doe3",
                          first_name="John",
@@ -84,8 +80,7 @@ class ConfigurationService:
             animation = Genre.query.filter(Genre.name == 'Animation').first()
             comedy = Genre.query.filter(Genre.name == 'Comedy').first()
 
-            joker = Movie(id=1,
-                          name="Joker",
+            joker = Movie(name="Joker",
                           year=2019,
                           duration=122,
                           description="In Gotham City, mentally troubled comedian Arthur Fleck is "
@@ -98,8 +93,7 @@ class ConfigurationService:
             joker.genres.append(horror)
             joker.genres.append(drama)
 
-            lion_king = Movie(id=2,
-                              name="The Lion King",
+            lion_king = Movie(name="The Lion King",
                               year=1994,
                               duration=88,
                               description="Lion prince Simba and his father are targeted by his bitter uncle, "
@@ -108,8 +102,7 @@ class ConfigurationService:
             lion_king.genres.append(animation)
             lion_king.genres.append(drama)
 
-            blackkklansman = Movie(id=3,
-                                   name="BlacKkKlansman",
+            blackkklansman = Movie(name="BlacKkKlansman",
                                    year=2018,
                                    duration=135,
                                    description="Ron Stallworth, an African American police officer from Colorado "
